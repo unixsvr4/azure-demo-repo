@@ -1,0 +1,30 @@
+name: Terraform Plan & Apply
+
+on:
+  workflow_dispatch:
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+      - name: Terragrunt plan
+        run: |
+          cd infra/terraform/envs/dev
+          terragrunt init
+          terragrunt plan
+  apply:
+    needs: plan
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+      - name: Terragrunt apply
+        run: |
+          cd infra/terraform/envs/dev
+          terragrunt init
+          terragrunt apply -auto-approve

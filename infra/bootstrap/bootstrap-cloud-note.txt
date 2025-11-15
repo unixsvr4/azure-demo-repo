@@ -1,0 +1,1 @@
+# Cloud-specific bootstrap scripts should be added here. Use Terragrunt to apply envs.

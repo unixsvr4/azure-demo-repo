@@ -1,0 +1,22 @@
+# Replace REPLACE_IMAGE with actual image created by CI/CD
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-service
+  labels:
+    app: demo-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-service
+  template:
+    metadata:
+      labels:
+        app: demo-service
+    spec:
+      containers:
+      - name: demo-service
+        image: REPLACE_IMAGE
+        ports:
+        - containerPort: 8080
